@@ -1,0 +1,5 @@
+Använd alltid `yarn` som pakethanterare i detta projekt istället för `npm`. Kör `yarn install` för att installera beroenden och `yarn`-kommandon när det behövs. Kör aldrig `npm install`.
+
+Projektet är ett React Native-projekt med Expo SDK 53 och Supabase som backend. Supabase är redan konfigurerat och projektet är kopplat till ett fungerande Google OAuth-flöde via Supabase. Använd dessa förutsättningar när du föreslår kod eller konfiguration.
+
+Alla ändringar ska vara kompatibla med mobile-first design och passa in i det nuvarande gränssnittet.
