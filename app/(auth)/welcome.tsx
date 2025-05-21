@@ -1,7 +1,5 @@
 import { View, Text, ImageBackground, StyleSheet, Pressable, Linking, Image } from 'react-native';
 import { Link } from 'expo-router';
-import { signInWithGoogle } from '@/lib/supabase';
-import { ToggleLeft as Google } from 'lucide-react-native';
 
 export default function Welcome() {
   const handleTermsPress = () => {
@@ -10,14 +8,6 @@ export default function Welcome() {
 
   const handlePrivacyPress = () => {
     Linking.openURL('https://heavygym.com/privacy');
-  };
-
-  const handleGoogleSignIn = async () => {
-    try {
-      await signInWithGoogle();
-    } catch (error) {
-      console.error('Google sign in error:', error);
-    }
   };
 
   return (
@@ -51,13 +41,6 @@ export default function Welcome() {
                   <Text style={styles.loginText}>LOGGA IN</Text>
                 </Pressable>
               </Link>
-              
-              <Text style={styles.orText}>Eller logga in med</Text>
-              
-              <Pressable style={styles.googleButton} onPress={handleGoogleSignIn}>
-                <Google size={20} color="#000000" style={styles.googleIcon} />
-                <Text style={styles.googleButtonText}>FORTSÄTT MED GOOGLE</Text>
-              </Pressable>
             </View>
 
             <View style={styles.termsContainer}>
@@ -144,32 +127,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Inter-SemiBold',
     letterSpacing: 1,
-  },
-  orText: {
-    color: '#B0B0B0',
-    fontSize: 14,
-    fontFamily: 'Inter-Regular',
-    textAlign: 'center',
-    marginTop: 8,
-    marginBottom: 8,
-  },
-  googleButton: {
-    backgroundColor: '#FFFFFF',
-    paddingVertical: 18,
-    borderRadius: 12,
-    alignItems: 'center',
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  googleButtonText: {
-    color: '#000000',
-    fontSize: 16,
-    fontFamily: 'Inter-SemiBold',
-    letterSpacing: 1,
-  },
-  googleIcon: {
-    marginRight: 12,
   },
   termsContainer: {
     flexDirection: 'row',
