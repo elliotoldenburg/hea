@@ -16,7 +16,6 @@ import type { TrainingCycle } from '@/types/database.types';
 type Props = {
   visible: boolean;
   onClose: () => void;
-  onConfirmEnd: () => void;
   cycle: TrainingCycle;
   loading: boolean;
   cycleProgress: {
@@ -30,7 +29,6 @@ type Props = {
 export default function CycleSummaryModal({
   visible,
   onClose,
-  onConfirmEnd,
   cycle,
   loading,
   cycleProgress,
@@ -60,7 +58,7 @@ export default function CycleSummaryModal({
           />
 
           <View style={styles.modalHeader}>
-            <Text style={styles.modalTitle}>Avsluta träningscykel</Text>
+            <Text style={styles.modalTitle}>Cykelsammanfattning</Text>
             <Pressable style={styles.closeButton} onPress={onClose}>
               <X size={24} color="#FFFFFF" />
             </Pressable>
@@ -122,37 +120,6 @@ export default function CycleSummaryModal({
                 </View>
               </View>
             ))}
-
-            <View style={styles.warningContainer}>
-              <Text style={styles.warningTitle}>Viktigt att notera</Text>
-              <Text style={styles.warningText}>
-                När du avslutar en träningscykel markeras den som inaktiv och kan inte återaktiveras.
-                All träningsdata sparas och du kan fortfarande se historiken, men för att fortsätta
-                logga träning behöver du starta en ny cykel med nya mål.
-              </Text>
-            </View>
-
-            <View style={styles.actionButtons}>
-              <Pressable
-                style={[styles.button, styles.cancelButton]}
-                onPress={onClose}
-                disabled={loading}
-              >
-                <Text style={styles.cancelButtonText}>Avbryt</Text>
-              </Pressable>
-
-              <Pressable
-                style={[styles.button, styles.endButton]}
-                onPress={onConfirmEnd}
-                disabled={loading}
-              >
-                {loading ? (
-                  <ActivityIndicator color="#FFFFFF" />
-                ) : (
-                  <Text style={styles.endButtonText}>Avsluta cykel</Text>
-                )}
-              </Pressable>
-            </View>
           </ScrollView>
         </View>
       </View>
@@ -292,53 +259,5 @@ const styles = StyleSheet.create({
   },
   negativeText: {
     color: '#EF4444',
-  },
-  warningContainer: {
-    backgroundColor: 'rgba(239,68,68,0.1)',
-    borderRadius: 12,
-    padding: 16,
-    marginTop: 24,
-    marginBottom: 32,
-    borderWidth: 1,
-    borderColor: 'rgba(239,68,68,0.2)',
-  },
-  warningTitle: {
-    color: '#EF4444',
-    fontSize: 16,
-    fontFamily: 'Inter-SemiBold',
-    marginBottom: 8,
-  },
-  warningText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontFamily: 'Inter-Regular',
-    lineHeight: 20,
-  },
-  actionButtons: {
-    flexDirection: 'row',
-    gap: 16,
-    marginBottom: Platform.OS === 'ios' ? 48 : 24,
-  },
-  button: {
-    flex: 1,
-    padding: 16,
-    borderRadius: 12,
-    alignItems: 'center',
-  },
-  cancelButton: {
-    backgroundColor: '#333333',
-  },
-  cancelButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontFamily: 'Inter-Regular',
-  },
-  endButton: {
-    backgroundColor: '#EF4444',
-  },
-  endButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontFamily: 'Inter-SemiBold',
   },
 });

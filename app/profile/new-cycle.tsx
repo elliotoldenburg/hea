@@ -18,11 +18,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 export default function NewCycleScreen() {
   const [goal, setGoal] = useState('');
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState<Date | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showStartPicker, setShowStartPicker] = useState(false);
-  const [showEndPicker, setShowEndPicker] = useState(false);
 
   const handleSave = async () => {
     if (!goal.trim()) {
@@ -40,7 +38,6 @@ export default function NewCycleScreen() {
         .insert({
           goal: goal.trim(),
           start_date: startDate.toISOString().split('T')[0],
-          end_date: endDate ? endDate.toISOString().split('T')[0] : null,
           active: true
         })
         .select()
@@ -116,27 +113,6 @@ export default function NewCycleScreen() {
           </Pressable>
         </View>
 
-        <View style={styles.formGroup}>
-          <Text style={styles.label}>Slutdatum (valfritt)</Text>
-          <Pressable 
-            style={styles.dateButton}
-            onPress={() => setShowEndPicker(true)}
-          >
-            <Calendar size={20} color="#808080" />
-            <Text style={styles.dateText}>
-              {endDate ? formatDate(endDate) : 'Välj datum'}
-            </Text>
-          </Pressable>
-          {endDate && (
-            <Pressable
-              style={styles.clearDateButton}
-              onPress={() => setEndDate(null)}
-            >
-              <Text style={styles.clearDateText}>Ta bort slutdatum</Text>
-            </Pressable>
-          )}
-        </View>
-
         <Pressable
           style={[styles.saveButton, loading && styles.saveButtonDisabled]}
           onPress={handleSave}
@@ -159,21 +135,6 @@ export default function NewCycleScreen() {
             setShowStartPicker(false);
             if (selectedDate) {
               setStartDate(selectedDate);
-            }
-          }}
-        />
-      )}
-
-      {(Platform.OS !== 'web' && showEndPicker) && (
-        <DateTimePicker
-          value={endDate || new Date()}
-          mode="date"
-          display="default"
-          minimumDate={startDate}
-          onChange={(event, selectedDate) => {
-            setShowEndPicker(false);
-            if (selectedDate) {
-              setEndDate(selectedDate);
             }
           }}
         />
@@ -259,16 +220,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontFamily: 'Inter-Regular',
-  },
-  clearDateButton: {
-    marginTop: 8,
-    padding: 8,
-  },
-  clearDateText: {
-    color: '#009dff',
-    fontSize: 14,
-    fontFamily: 'Inter-Regular',
-    textAlign: 'center',
   },
   saveButton: {
     backgroundColor: '#009dff',
